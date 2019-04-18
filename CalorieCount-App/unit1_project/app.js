@@ -23,16 +23,17 @@ $(() => {
   $($myCountModal).append($addButton);
   ////////////Event Listeners/////////////////
   const $resetMyCount = () => {
-    let myBrandName = '';
-    let myName = '';
-    let servingsInput = 0;
-    let myCalories = 0;
-    let myFiber = 0;
-    let myProtein = 0;
-    let mySugars = 0;
-    let myCarbs = 0;
-    let myFat = 0;
-    let myServings = 0;
+    myBrandName = '';
+    myName = '';
+    servingsInput = 0;
+    myCalories = 0;
+    myFiber = 0;
+    myProtein = 0;
+    mySugars = 0;
+    myCarbs = 0;
+    myFat = 0;
+    myServings = 0;
+    $myCountModalContent.text('Calories: '+ (myCalories) + ', Fiber: ' + (myFiber) + ', Protein: ' + (myProtein) + ', Sugars: ' + (mySugars) + ', Carbs: ' + (myCarbs) + ', Fat: ' + (myFat) + ', Servings: ' + (myServings));
   }
 
   $('body').on('click', '.myCount' , (event) => {
@@ -138,9 +139,8 @@ $(() => {
                 myServings += (data.hits[i].fields.nf_serving_size_qty);
                 $myCountModalContent.text('Calories: '+ (myCalories) + ', Fiber: ' + (myFiber) + ', Protein: ' + (myProtein) + ', Sugars: ' + (mySugars) + ', Carbs: ' + (myCarbs) + ', Fat: ' + (myFat) + ', Servings: ' + (myServings));
                 $myRecentsModalContent.text('Brand Name: ' + myBrandName + '. Name: ' + myName);
-                //store added values to local storage//
-                localStorage.setItem('storageData', 'Calories: '+ (myCalories) + ', Fiber: ' + (myFiber) + ', Protein: ' + (myProtein) + ', Sugars: ' + (mySugars) + ', Carbs: ' + (myCarbs) + ', Fat: ' +(myFat));
-                console.log(localStorage.getItem('storageData'));
+                  localStorage.setItem('storageData', 'Calories: '+ (myCalories) + ', Fiber: ' + (myFiber) + ', Protein: ' + (myProtein) + ', Sugars: ' + (mySugars) + ', Carbs: ' + (myCarbs) + ', Fat: ' +(myFat));
+
               })
             }
           });
