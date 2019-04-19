@@ -104,12 +104,10 @@ $(() => {
           })
           $('body').on('click', '.reset' , (event) => {
             event.preventDefault();
-            console.log('hello');
             $resetMyCount();
           })
           $('body').on('click', '.resetLocalStorage' , (event) => {
             event.preventDefault();
-            console.log('hello');
             $resetMyTotal();
           })
           $(document).on('click', (event) => {
@@ -147,7 +145,6 @@ $(() => {
             $('.middle').empty();
             event.preventDefault();
             userInput = ($('input[type= "text"]').val());
-            console.log(userInput);
             nutritionDatabase();
           })
           //////////////////////////////////
