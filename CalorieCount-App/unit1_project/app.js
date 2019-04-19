@@ -131,8 +131,11 @@ $(() => {
           let myFat = 0;
           let myServings = 0;
 
-          const $myCountModalContent = $('<div>').addClass('modal-content').attr('id','myCountModalContent').text('Calories: '+ (myCalories) + ', Fiber: ' + (myFiber) + ', Protein: ' + (myProtein) + ', Sugars: ' + (mySugars) + ', Carbs: ' + (myCarbs) + ', Fat: ' +(myFat) + ', Servings: ' + (myServings));
-          const $myTotalModalContent = $('<div>').attr('id','myTotalModalContent').addClass('modal-content').text('Calories: '+ (myCalories) + ', Fiber: ' + (myFiber) + ', Protein: ' + (myProtein) + ', Sugars: ' + (mySugars) + ', Carbs: ' + (myCarbs) + ' Fat: ' +(myFat) + ', Servings: ' + (myServings));
+          let myCount = JSON.parse(localStorage.getItem('myCount'));
+          let myTotal = JSON.parse(localStorage.getItem('myTotal'));
+
+          const $myCountModalContent = $('<div>').addClass('modal-content').attr('id','myCountModalContent').text('Calories: '+ myCount.Calories + ', Fiber: ' + myCount.Fiber + ', Protein: ' + myCount.Protein + ', Sugars: ' + myCount.Sugars + ', Carbs: ' + myCount.Carbs + ', Fat: ' +myCount.Fat + ', Servings: ' + (myServings));
+          const $myTotalModalContent = $('<div>').attr('id','myTotalModalContent').addClass('modal-content').text('Calories: '+ myTotal.Calories + ', Fiber: ' + myTotal.Fiber + ', Protein: ' + myTotal.Protein + ', Sugars: ' + myTotal.Sugars + ', Carbs: ' + myTotal.Carbs + ', Fat: ' + myTotal.Fat + ', Servings: ' + (myServings));
           const $myRecentsModalContent = $('<div>').addClass('modal-content').text('Brand Name: ' + (myBrandName) + '. Name: ' + (myName));
 
           $myCountModal.append($myCountModalContent);
@@ -207,6 +210,7 @@ $(() => {
                   Sugars: mySugars,
                   Carbs: myCarbs,
                   Fat: myFat,
+                  Servings: myServings,
                 }))
               })
             }
@@ -242,8 +246,8 @@ $(() => {
               let scrollTop = $(document).scrollTop();
               let windowHeight = $(window).height();
               let height = $(document).height() - windowHeight;
-              let scrowllPercentage = (scrollTop/height);
-              if(scrowllPercentage > 0.9){
+              let scrollPercentage = (scrollTop/height);
+              if(scrollPercentage > 0.9){
                 this.loadPage();
               };
             };

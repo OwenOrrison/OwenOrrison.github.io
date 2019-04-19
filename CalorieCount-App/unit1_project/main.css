@@ -122,6 +122,7 @@ button:hover{
   overflow: auto;
   background-color: rgba(255,255,255,1);
   color: blue;
+  border: 2px solid blue;
   /* margin: 5%; */
 }
 
