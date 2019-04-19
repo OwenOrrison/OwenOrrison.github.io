@@ -118,6 +118,7 @@ $(() => {
           ///////////////////////////////////////////
           ///////Modal Changing Variables////////////
           //////////////////////////////////////////
+          // if(localStorage.getItem('myCount') === null){
           let myBrandName = '';
           let myName = '';
           let servingsInput = 0;
@@ -128,12 +129,17 @@ $(() => {
           let myCarbs = 0;
           let myFat = 0;
           let myServings = 0;
+        // }
 
           let myCount = JSON.parse(localStorage.getItem('myCount'));
           let myTotal = JSON.parse(localStorage.getItem('myTotal'));
 
-          const $myCountModalContent = $('<div>').addClass('modal-content').attr('id','myCountModalContent').text('Calories: '+ myCount.Calories + ', Fiber: ' + myCount.Fiber + ', Protein: ' + myCount.Protein + ', Sugars: ' + myCount.Sugars + ', Carbs: ' + myCount.Carbs + ', Fat: ' +myCount.Fat + ', Servings: ' + (myServings));
-          const $myTotalModalContent = $('<div>').attr('id','myTotalModalContent').addClass('modal-content').text('Calories: '+ myTotal.Calories + ', Fiber: ' + myTotal.Fiber + ', Protein: ' + myTotal.Protein + ', Sugars: ' + myTotal.Sugars + ', Carbs: ' + myTotal.Carbs + ', Fat: ' + myTotal.Fat + ', Servings: ' + (myServings));
+
+          const $myCountModalContent = $('<div>').addClass('modal-content').attr('id','myCountModalContent').text('Calories: '+ (myCalories) + ', Fiber: ' + (myFiber) + ', Protein: ' + (myProtein) + ', Sugars: ' + (mySugars) + ', Carbs: ' + (myCarbs) + ', Fat: ' +(myFat) + ', Servings: ' + (myServings));
+          // const $myCountModalContent = $('<div>').addClass('modal-content').attr('id','myCountModalContent').text('Calories: '+ myCount.Calories + ', Fiber: ' + myCount.Fiber + ', Protein: ' + myCount.Protein + ', Sugars: ' + myCount.Sugars + ', Carbs: ' + myCount.Carbs + ', Fat: ' +myCount.Fat + ', Servings: ' + (myServings));
+          const $myTotalModalContent = $('<div>').attr('id','myTotalModalContent').addClass('modal-content').text('Calories: '+ (myCalories) + ', Fiber: ' + (myFiber) + ', Protein: ' + (myProtein) + ', Sugars: ' + (mySugars) + ', Carbs: ' + (myCarbs) + ', Fat: ' +(myFat) + ', Servings: ' + (myServings));
+          // const $myTotalModalContent = $('<div>').attr('id','myTotalModalContent').addClass('modal-content').text('Calories: '+ myTotal.Calories + ', Fiber: ' + myTotal.Fiber + ', Protein: ' + myTotal.Protein + ', Sugars: ' + myTotal.Sugars + ', Carbs: ' + myTotal.Carbs + ', Fat: ' + myTotal.Fat + ', Servings: ' + (myServings));
+
           const $myRecentsModalContent = $('<div>').addClass('modal-content').text('Brand Name: ' + (myBrandName) + '. Name: ' + (myName));
 
           $myCountModal.append($myCountModalContent);
