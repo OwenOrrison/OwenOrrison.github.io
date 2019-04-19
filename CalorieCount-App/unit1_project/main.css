@@ -174,4 +174,7 @@ button:hover{
   .servingSize{
     margin-left: 2%;
   }
+  .modal-content{
+    margin: 5%;
+  }
 }
