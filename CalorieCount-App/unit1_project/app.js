@@ -11,6 +11,7 @@ $(() => {
   const $closeButton3 = $('<span>').attr('type' , 'button').addClass('close').attr('id','close3').text('X');
 
   const $resetButton = $('<button>').attr('type', 'button').addClass('reset').text('RESET');
+  const $resetButton2 = $('<button>').attr('type', 'button').addClass('resetLocalStorage').text('RESET');
   const $addButton = $('<button>').attr('type', 'button').addClass('add').text('ADD');
 
   $('body').append($myCountModal);
@@ -19,6 +20,7 @@ $(() => {
   $($myCountModal).append($closeButton1);
   $($myCountModal).append($resetButton);
   $($myTotalModal).append($closeButton2);
+  $($myTotalModal).append($resetButton2);
   $($myRecentsModal).append($closeButton3);
   $($myCountModal).append($addButton);
   ////////////Event Listeners/////////////////
@@ -33,7 +35,37 @@ $(() => {
     myCarbs = 0;
     myFat = 0;
     myServings = 0;
-    $myCountModalContent.text('Calories: '+ (myCalories) + ', Fiber: ' + (myFiber) + ', Protein: ' + (myProtein) + ', Sugars: ' + (mySugars) + ', Carbs: ' + (myCarbs) + ', Fat: ' + (myFat) + ', Servings: ' + (myServings));
+    $myCountModalContent.text('Calories: '+ (myCalories) + ', Fiber: ' + (myFiber) + ', Protein: ' + (myProtein) + ', Sugars: ' + (mySugars) + ', Carbs: ' + (myCarbs) + ', Fat: ' + (myFat) + ', Servings: ' + (myServings))
+    localStorage.setItem('myCount', JSON.stringify({
+      Calories: 0,
+      Fiber: 0,
+      Protein: 0,
+      Sugars: 0,
+      Carbs: 0,
+      Fat: 0,
+    }));
+  }
+  const $resetMyTotal = () => {
+    localStorage.setItem('myTotal', JSON.stringify({
+      Calories: 0,
+      Fiber: 0,
+      Protein: 0,
+      Sugars: 0,
+      Carbs: 0,
+      Fat: 0,
+    }))
+    myBrandName = '';
+    myName = '';
+    servingsInput = 0;
+    myCalories = 0;
+    myFiber = 0;
+    myProtein = 0;
+    mySugars = 0;
+    myCarbs = 0;
+    myFat = 0;
+    myServings = 0;
+    $myTotalModalContent.text('Calories: '+ (myCalories) + ', Fiber: ' + (myFiber) + ', Protein: ' + (myProtein) + ', Sugars: ' + (mySugars) + ', Carbs: ' + (myCarbs) + ', Fat: ' + (myFat) + ', Servings: ' + (myServings))
+    console.log('$resetMyTotal', JSON.parse(localStorage.getItem('myTotal')));
   }
 
   $('body').on('click', '.myCount' , (event) => {
@@ -45,13 +77,40 @@ $(() => {
         $('.close').on('click' , (event) => {
           $('.modal').hide();})
           $('.add').on('click', (event) => {
-            document.getElementById("myTotalModalContent").innerHTML = localStorage.getItem('storageData');
-            console.log(localStorage.getItem('storageData'));
+            const count = JSON.parse(localStorage.getItem('myCount'));
+            let total = JSON.parse(localStorage.getItem('myTotal'));
+            if(total !== null){
+              total = {
+                Calories: count.Calories + total.Calories,
+                Fiber: count.Fiber + total.Fiber,
+                Protein: count.Protein + total.Protein,
+                Sugars: count.Sugars + total.Sugars,
+                Carbs: count.Carbs + total.Carbs,
+                Fat: count.Fat + total.Fat,
+              }
+            } else {
+            total = {
+              Calories: count.Calories,
+              Fiber: count.Fiber,
+              Protein: count.Protein,
+              Sugars: count.Sugars,
+              Carbs: count.Carbs,
+              Fat: count.Fat,
+            } }
+            localStorage.setItem('myTotal' , JSON.stringify(total));
+            const text = 'Calories: '+ total.Calories + ', Fiber: ' + total.Fiber + ', Protein: ' + total.Protein + ', Sugars: ' + total.Sugars + ', Carbs: ' + total.Carbs + ', Fat: ' + total.Fat;
+            document.getElementById("myTotalModalContent").innerHTML = text;
+            console.log('add click', total);
           })
           $('body').on('click', '.reset' , (event) => {
             event.preventDefault();
             console.log('hello');
             $resetMyCount();
+          })
+          $('body').on('click', '.resetLocalStorage' , (event) => {
+            event.preventDefault();
+            console.log('hello');
+            $resetMyTotal();
           })
           $(document).on('click', (event) => {
             if(event.target == $('.modal')){
@@ -139,8 +198,16 @@ $(() => {
                 myServings += (data.hits[i].fields.nf_serving_size_qty);
                 $myCountModalContent.text('Calories: '+ (myCalories) + ', Fiber: ' + (myFiber) + ', Protein: ' + (myProtein) + ', Sugars: ' + (mySugars) + ', Carbs: ' + (myCarbs) + ', Fat: ' + (myFat) + ', Servings: ' + (myServings));
                 $myRecentsModalContent.text('Brand Name: ' + myBrandName + '. Name: ' + myName);
-                  localStorage.setItem('storageData', 'Calories: '+ (myCalories) + ', Fiber: ' + (myFiber) + ', Protein: ' + (myProtein) + ', Sugars: ' + (mySugars) + ', Carbs: ' + (myCarbs) + ', Fat: ' +(myFat));
-
+                const currentLocalStorage = JSON.parse(localStorage.getItem('myCount'));
+                console.log('This is from current local storage', currentLocalStorage);
+                localStorage.setItem('myCount', JSON.stringify({
+                  Calories: myCalories,
+                  Fiber: myFiber,
+                  Protein: myProtein,
+                  Sugars: mySugars,
+                  Carbs: myCarbs,
+                  Fat: myFat,
+                }))
               })
             }
           });
@@ -189,11 +256,6 @@ $(() => {
             new InfiniteScroll();
           })
         }; (jQuery, window);
-        /////////////////////////////////
-        //////// Local Storage //////////
-        /////////////////////////////////
-
-        console.log(localStorage.getItem('storageData'));
       });
       //////////////////////////////////
       /////////Sticky Nav///////////////
